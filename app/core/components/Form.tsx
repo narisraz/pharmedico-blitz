@@ -1,7 +1,9 @@
-import { ReactNode, PropsWithoutRef } from "react"
+import { PropsWithoutRef, ReactNode } from "react"
 import { Form as FinalForm, FormProps as FinalFormProps } from "react-final-form"
 import { z } from "zod"
 import { validateZodSchema } from "blitz"
+import { Alert, Button } from "@mui/material"
+
 export { FORM_ERROR } from "final-form"
 
 export interface FormProps<S extends z.ZodType<any, any>>
@@ -30,19 +32,15 @@ export function Form<S extends z.ZodType<any, any>>({
       onSubmit={onSubmit}
       render={({ handleSubmit, submitting, submitError }) => (
         <form onSubmit={handleSubmit} className="form" {...props}>
+          {submitError && <Alert severity="error">{submitError}</Alert>}
+
           {/* Form fields supplied as children are rendered here */}
           {children}
 
-          {submitError && (
-            <div role="alert" style={{ color: "red" }}>
-              {submitError}
-            </div>
-          )}
-
           {submitText && (
-            <button type="submit" disabled={submitting}>
+            <Button type="submit" disabled={submitting} variant="contained" fullWidth>
               {submitText}
-            </button>
+            </Button>
           )}
 
           <style global jsx>{`
