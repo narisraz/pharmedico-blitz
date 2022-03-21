@@ -47,12 +47,14 @@ export const SignupChooserPage = () => {
             <ListItemText primary="Médecin" />
           </ListItemButton>
         </Link>
-        <ListItemButton>
-          <ListItemIcon>
-            <LocalPharmacyIcon />
-          </ListItemIcon>
-          <ListItemText primary="Pharmacie" />
-        </ListItemButton>
+        <Link href={Routes.SignupPharmacyPage()}>
+          <ListItemButton>
+            <ListItemIcon>
+              <LocalPharmacyIcon />
+            </ListItemIcon>
+            <ListItemText primary="Pharmacie" />
+          </ListItemButton>
+        </Link>
         <ListItemButton>
           <ListItemIcon>
             <ScienceIcon />

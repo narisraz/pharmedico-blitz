@@ -1,28 +1,25 @@
-import { Form } from "app/core/components/Form"
 import { useMutation } from "blitz"
-import { Login } from "../validations"
-import { FORM_ERROR } from "../../core/components/Form"
-import { Box, Button, TextField, Typography } from "@mui/material"
-import FileUploadIcon from "@mui/icons-material/FileUpload"
-import { useEffect, useState } from "react"
 import signupDoctor from "../mutations/signupDoctor"
+import { useEffect, useState } from "react"
+import { Box, Button, TextField, Typography } from "@mui/material"
 import LocalHospitalIcon from "@mui/icons-material/LocalHospital"
+import { Login } from "../validations"
+import { Form, FORM_ERROR } from "../../core/components/Form"
+import FileUploadIcon from "@mui/icons-material/FileUpload"
 
-export { FORM_ERROR } from "app/core/components/Form"
-
-type SignupDoctorFormProps = {
+type SignupPharmacyFormProps = {
   onSuccess?: () => void
 }
 
-export function SignupDoctorForm(props: SignupDoctorFormProps) {
+export function SignupPharmacyForm(props: SignupPharmacyFormProps) {
   const [signupMutation] = useMutation(signupDoctor)
   const [fileList, setFileList] = useState<FileList | null>()
-  const [profilePhoto, setProfilePhoto] = useState<File | null>()
+  const [logo, setLogo] = useState<File | null>()
 
   useEffect(() => {
     if (fileList && fileList.length) {
       const file = fileList.item(0)
-      setProfilePhoto(file)
+      setLogo(file)
     }
   }, [fileList])
 
@@ -37,8 +34,8 @@ export function SignupDoctorForm(props: SignupDoctorFormProps) {
         marginTop: "25px",
       }}
     >
-      {profilePhoto ? (
-        <img src={`${URL.createObjectURL(profilePhoto)}`} />
+      {logo ? (
+        <img src={`${URL.createObjectURL(logo)}`} />
       ) : (
         <LocalHospitalIcon
           sx={{
@@ -52,7 +49,7 @@ export function SignupDoctorForm(props: SignupDoctorFormProps) {
           marginBottom: "1em",
         }}
       >
-        Médecin
+        Pharmacie
       </Typography>
       <Form
         schema={Login}
@@ -90,7 +87,7 @@ export function SignupDoctorForm(props: SignupDoctorFormProps) {
                 component="span"
                 startIcon={<FileUploadIcon />}
               >
-                {profilePhoto?.name ?? "Photo de profile"}
+                {logo?.name ?? "Logo"}
               </Button>
             </label>
           </div>
@@ -98,55 +95,10 @@ export function SignupDoctorForm(props: SignupDoctorFormProps) {
             <TextField name="name" label="Nom" variant="standard" margin="dense" fullWidth />
           </div>
           <div>
-            <TextField
-              name="firstName"
-              label="Prénom"
-              variant="standard"
-              margin="dense"
-              fullWidth
-            />
-          </div>
-          <div>
             <TextField name="address" label="Adresse" variant="standard" margin="dense" fullWidth />
           </div>
           <div>
-            <TextField name="onm" label="ONM" variant="standard" margin="dense" fullWidth />
-          </div>
-          <div>
-            <TextField
-              name="specialities"
-              label="Spécialités"
-              variant="standard"
-              margin="dense"
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              name="homeTel"
-              label="Tel. domicile"
-              variant="standard"
-              margin="dense"
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              name="proTel"
-              label="Tel. professionnel"
-              variant="standard"
-              margin="dense"
-              fullWidth
-            />
-          </div>
-          <div>
-            <TextField
-              name="officeTel"
-              label="Tel. bureau"
-              variant="standard"
-              margin="dense"
-              fullWidth
-            />
+            <TextField name="tel" label="Tel." variant="standard" margin="dense" fullWidth />
           </div>
           <div>
             <TextField name="email" label="Email" variant="standard" margin="dense" fullWidth />
